@@ -83,17 +83,15 @@
       <div class="grid place-items-center">
         <p class="text-3xl font-bold mb-5">Entries</p>
       </div>
+      <div class="flex flex row">
+        <div class="font-bold mx-16">Name</div>
+        <div class="font-bold mx-8">Email</div>
+        <div class="font-bold mr-20 ml-52">Password</div>
+        <div class="font-bold mx-10">Dob</div>
+        <div class="font-bold mx-8">Accepted terms?</div>
+      </div>
       <div class="flex justify-center">
         <table class="table-auto">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Password</th>
-              <th>DoB</th>
-              <th>acceptTerms</th>
-            </tr>
-          </thead>
           <tbody id="showData"></tbody>
         </table>
       </div>
@@ -118,6 +116,10 @@
         dob,
         acceptTerms,
       };
+      var users = JSON.parse(localStorage.getItem("user-entries")) || [];
+      for (var i = 0; i < users.length; i++) {
+        UserEntries.push(users[i]);
+      }
       UserEntries.push(entries);
       localStorage.setItem("user-entries", JSON.stringify(UserEntries));
       showData();
