@@ -53,8 +53,8 @@
         <input
           type="date"
           id="dob"
-          min="1967-02-07"
-          max="2005-02-07"
+          min="1967-02-08"
+          max="2005-02-08"
           class="border-2 border-gray-700 rounded-lg m-5 p-1 shadow-md"
           required
         />
@@ -77,28 +77,30 @@
       </form>
     </div>
     <div
-      class="place-items-center border-2 rounded-lg broder-gray-100 w-2/4 mt-20 shadow-2xl"
-      style="margin-left: 25%"
+      class="flex flex-col absolute place-items-center border-2 rounded-lg border-gray-100 mt-20 shadow-2xl"
+      style="margin-left: 25%;"
     >
-      <div class="grid place-items-center">
-        <p class="text-3xl font-bold mb-5">Entries</p>
+      <div class="">
+        <p class="text-3xl font-bold mb-16">Entries</p>
       </div>
-      <div class="flex flex row">
-        <div class="font-bold mx-16">Name</div>
-        <div class="font-bold mx-8">Email</div>
-        <div class="font-bold mr-20 ml-52">Password</div>
-        <div class="font-bold mx-10">Dob</div>
-        <div class="font-bold mx-8">Accepted terms?</div>
-      </div>
-      <div class="flex justify-center">
-        <table class="table-auto">
-          <tbody id="showData"></tbody>
-        </table>
+      <div class="flex flex-col">
+        <div class="flex flex-row">
+          <div class="font-bold absolute top-14" style="margin-left: 6%;">Name</div>
+          <div class="font-bold absolute top-14" style="margin-left: 24%;">Email</div>
+          <div class="font-bold absolute top-14" style="margin-left: 55%;">Password</div>
+          <div class="font-bold absolute top-14" style="margin-left: 70%;">Dob</div>
+          <div class="font-bold absolute top-14" style="margin-left: 85%;">Accepted terms?</div>
+        </div>
+          <table class="table-auto relative" >
+            <tbody id="showData"></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </body>
   <script type="text/javascript">
     let UserEntries = [];
+    let flag = true;
 
     function submitListener(event) {
       event.preventDefault();
@@ -116,9 +118,13 @@
         dob,
         acceptTerms,
       };
-      var users = JSON.parse(localStorage.getItem("user-entries")) || [];
-      for (var i = 0; i < users.length; i++) {
-        UserEntries.push(users[i]);
+      if (flag) {
+        var users = [];
+        users = JSON.parse(localStorage.getItem("user-entries")) || [];
+        for (var i = 0; i < users.length; i++) {
+          UserEntries.push(users[i]);
+        }
+        flag = false;
       }
       UserEntries.push(entries);
       localStorage.setItem("user-entries", JSON.stringify(UserEntries));
