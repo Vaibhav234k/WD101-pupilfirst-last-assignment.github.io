@@ -2,14 +2,13 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Form Validation</title>
   <style>
-    table,
-    th,
+    tbody,
     td {
-      width: 50vw;
-      padding: 10;
-      border: 2px solid rgba(128, 128, 128, 0.356);
+      border: 2px solid rgba(128, 128, 128, 0.29);
     }
     table {
+      width: 50vw;
+      padding-left: 10;
       margin-left: 15px;
       margin-right: 15px;
     }
@@ -20,6 +19,7 @@
       <form
         id="user-form"
         onsubmit="submitListener(event)"
+        name="form1"
         class="p-5 rounded-lg bg-white-150 shadow-2xl mt-20 border-2 border-gray-100"
       >
         <label for="name" class="text-xl mr-20">Name</label>
@@ -53,8 +53,8 @@
         <input
           type="date"
           id="dob"
-          min="1967-02-08"
-          max="2005-02-08"
+          min="1968-02-09"
+          max="2005-02-09"
           class="border-2 border-gray-700 rounded-lg m-5 p-1 shadow-md"
           required
         />
@@ -78,23 +78,31 @@
     </div>
     <div
       class="flex flex-col absolute place-items-center border-2 rounded-lg border-gray-100 mt-20 shadow-2xl"
-      style="margin-left: 25%;"
+      style="margin-left: 25%"
     >
       <div class="">
-        <p class="text-3xl font-bold mb-16">Entries</p>
+        <p class="text-3xl font-bold mt-10 mb-10">Entries</p>
       </div>
       <div class="flex flex-col">
-        <div class="flex flex-row">
+        <!-- <div class="flex flex-row">
           <div class="font-bold absolute top-14" style="margin-left: 6%;">Name</div>
           <div class="font-bold absolute top-14" style="margin-left: 24%;">Email</div>
           <div class="font-bold absolute top-14" style="margin-left: 55%;">Password</div>
           <div class="font-bold absolute top-14" style="margin-left: 70%;">Dob</div>
           <div class="font-bold absolute top-14" style="margin-left: 85%;">Accepted terms?</div>
-        </div>
-          <table class="table-auto relative" >
-            <tbody id="showData"></tbody>
-          </table>
-        </div>
+        </div> -->
+        <table class="table-auto relative">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>Dob</th>
+              <th>Accepted terms?</th>
+            </tr>
+          </thead>
+          <tbody id="showData"></tbody>
+        </table>
       </div>
     </div>
   </body>
@@ -132,6 +140,18 @@
     }
     function showData() {
       var users = JSON.parse(localStorage.getItem("user-entries")) || [];
+      //console.log(users);
+      /*UserEntries.forEach((user) => {
+      alert("WORKING");
+
+      let res = `<tr>
+        <td>${user.name}</td>
+        <td>${user.email}</td>
+        <td>${user.password}</td>
+        <td>${user.dob}</td>
+        <td>${user.acceptTerms}</td>
+      </tr>`;
+    });*/
       for (var i = 0; i < users.length; i++) {
         let res = `<tr>
         <td>${users[i].name}</td>
