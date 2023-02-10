@@ -12,6 +12,12 @@
       margin-left: 15px;
       margin-right: 15px;
     }
+    thead {
+      font-size: larger;
+    }
+    body {
+      background-color: #1a202c;
+    }
   </style>
   <body>
     <div class="flex justify-center">
@@ -19,15 +25,15 @@
       <form
         id="user-form"
         onsubmit="submitListener(event)"
-        name="form1"
-        class="p-5 rounded-lg bg-white-150 shadow-2xl mt-20 border-2 border-gray-100"
+        class="p-5 rounded-lg bg-gray-800 shadow-2xl mt-20 font-bold text-white border-2 border-white"
       >
         <label for="name" class="text-xl mr-20">Name</label>
         <input
           type="text"
           id="name"
           name="name"
-          class="border-2 border-gray-700 rounded-lg p-1 m-5 shadow-md"
+          placeholder="Enter your name"
+          class="border border-gray-500 bg-gray-500 bg-opacity-40 focus:border-blue-500 focus:bg-gray-900 focus:ring-2 focus:ring-blue-900 text-base outline-none rounded-lg py-1 px-3 m-5 shadow-md"
           required
         /><br />
 
@@ -36,7 +42,8 @@
           type="email"
           id="email"
           name="email"
-          class="border-2 border-gray-700 rounded-lg m-5 p-1 shadow-md"
+          placeholder="Enter your email"
+          class="border border-gray-500 bg-gray-500 bg-opacity-40 focus:border-blue-500 focus:bg-gray-900 focus:ring-2 focus:ring-blue-900 text-base outline-none rounded-lg m-5 py-1 px-3 shadow-md"
           required
         /><br />
 
@@ -45,7 +52,8 @@
           type="password"
           id="password"
           name="password"
-          class="border-2 border-gray-700 rounded-lg m-5 p-1 shadow-md"
+          placeholder="Enter your password"
+          class="border border-gray-500 bg-gray-500 bg-opacity-40 focus:border-blue-500 focus:bg-gray-900 focus:ring-2 focus:ring-blue-900 text-base outline-none rounded-lg m-5 py-1 px-3 shadow-md"
           required
         /><br />
 
@@ -55,7 +63,7 @@
           id="dob"
           min="1968-02-09"
           max="2005-02-09"
-          class="border-2 border-gray-700 rounded-lg m-5 p-1 shadow-md"
+          class="border border-gray-500 bg-gray-500 bg-opacity-40 focus:border-blue-500 focus:bg-gray-900 focus:ring-2 focus:ring-blue-900 text-base outline-none rounded-lg m-5 py-1 px-3 shadow-md"
           required
         />
         <br />
@@ -70,28 +78,21 @@
 
         <button
           type="submit"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+          class="bg-blue-500 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full"
         >
           Submit
         </button>
       </form>
     </div>
     <div
-      class="flex flex-col absolute place-items-center border-2 rounded-lg border-gray-100 mt-20 shadow-2xl"
+      class="flex flex-col absolute place-items-center border-2 bg-gray-800 text-white rounded-lg border-gray-100 mt-20 shadow-2xl"
       style="margin-left: 25%"
     >
       <div class="">
         <p class="text-3xl font-bold mt-10 mb-10">Entries</p>
       </div>
       <div class="flex flex-col">
-        <!-- <div class="flex flex-row">
-          <div class="font-bold absolute top-14" style="margin-left: 6%;">Name</div>
-          <div class="font-bold absolute top-14" style="margin-left: 24%;">Email</div>
-          <div class="font-bold absolute top-14" style="margin-left: 55%;">Password</div>
-          <div class="font-bold absolute top-14" style="margin-left: 70%;">Dob</div>
-          <div class="font-bold absolute top-14" style="margin-left: 85%;">Accepted terms?</div>
-        </div> -->
-        <table class="table-auto relative">
+        <table class="table-auto relative text-white">
           <thead>
             <tr>
               <th>Name</th>
@@ -107,6 +108,15 @@
     </div>
   </body>
   <script type="text/javascript">
+    //date picker restriction
+    const dob2 = document.getElementById("dob");
+    const today = new Date().toISOString().slice(4, 10);
+
+    const year = new Date().getFullYear();
+
+    dob2.min = `${year - 55}${today}`;
+    dob2.max = `${year - 18}${today}`;
+
     let UserEntries = [];
     let flag = true;
 
@@ -140,25 +150,13 @@
     }
     function showData() {
       var users = JSON.parse(localStorage.getItem("user-entries")) || [];
-      //console.log(users);
-      /*UserEntries.forEach((user) => {
-      alert("WORKING");
-
-      let res = `<tr>
-        <td>${user.name}</td>
-        <td>${user.email}</td>
-        <td>${user.password}</td>
-        <td>${user.dob}</td>
-        <td>${user.acceptTerms}</td>
-      </tr>`;
-    });*/
       for (var i = 0; i < users.length; i++) {
         let res = `<tr>
-        <td>${users[i].name}</td>
-        <td>${users[i].email}</td>
-        <td>${users[i].password}</td>
-        <td>${users[i].dob}</td>
-        <td>${users[i].acceptTerms}</td>
+        <td class="py-3 px-2">${users[i].name}</td>
+        <td class="py-3 px-2">${users[i].email}</td>
+        <td class="py-3 px-2">${users[i].password}</td>
+        <td class="py-3 px-2">${users[i].dob}</td>
+        <td class="py-3 px-2">${users[i].acceptTerms}</td>
       </tr>`;
         document.getElementById("showData").innerHTML += res;
       }
